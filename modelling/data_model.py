@@ -15,7 +15,6 @@ class Data():
                  # This method will create the model for data
                  #This will be performed in second activity
 
-
     def get_type(self):
         return  self.y
     def get_X_train(self):
@@ -32,5 +31,3 @@ class Data():
         return  self.embeddings
     def get_type_test_df(self):
         return  self.test_df
-
-
