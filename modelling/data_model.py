@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from Config import *
+from Config import Config
 from utils import *
 import random
 seed =0
@@ -13,7 +13,20 @@ class Data():
                  X: np.ndarray,
                  df: pd.DataFrame) -> None:
                  # This method will create the model for data
-                 #This will be performed in second activity
+                 self.embeddings = X
+                 
+                 # Determine chained mult-output labels
+                 y2 = df[Config.TYPE_COLS[0]].astype(str).fillna('')
+                 y3 = df[Config.TYPE_COLS[1]].astype(str).fillna('')
+                 y4 = df[Config.TYPE_COLS[2]].astype(str).fillna('')
+                 
+                 # Target 'y' combines the chained sequence
+                 self.y = y2 + "_" + y3 + "_" + y4
+                 
+                 # Create Train/Test Split
+                 self.train_df, self.test_df, self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+                     df, self.embeddings, self.y, test_size=0.2, random_state=seed
+                 )
 
     def get_type(self):
         return  self.y
